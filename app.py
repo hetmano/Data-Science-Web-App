@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import pydeck as pdk
 
 
 DATA_URL = (
@@ -24,8 +25,25 @@ def load_data(nrows):
 data = load_data(100000)
 
 st.header("Where are the most injured people in Motor Vehicle Accidents?")
-injured_people = st.slider("Number of persons injured in accidents", 0, 19)
+injured_people = st.slider("Number of people injured in accidents", 0, 19)
 st.map(data.query("injured_persons >= @injured_people")[["latitude", "longitude"]].dropna(how="any"))
+
+st.header("How many collisions occur during a given time of day?")
+hour = st.slider("Time of a day", 0, 23)
+data = data[data['date/time'].dt.hour == hour]
+
+st.markdown("Vehicle collisions between %i:00 and %i:00" % (hour, (hour + 1) % 24))
+midpoint = (np.average(data['latitude']), np.average(data['longitude']))
+
+st.write(pdk.Deck(
+    map_style="mapbox://styles/mapbox/light-v11",
+    initial_view_state={
+        "latitude": midpoint[0],
+        "longitude": midpoint[1],
+        "zoom": 11,
+        "pitch": 50,
+    },
+))
 
 # Shows raw data by clicking checkbox, unchecked by default
 
