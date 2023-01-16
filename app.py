@@ -8,6 +8,8 @@ DATA_URL = (
 r'C:\datafiles\data\Motor_Vehicle_Collisions_-_Crashes.csv'
 )
 
+st.set_page_config(page_title="Vehicle Collisions in New York", page_icon="🗽")
+
 st.title("Motor Vehicle Collisions in New York City Area")
 st.markdown("This application is a Streamlit library dashboard used to analyze data about motor vehicle collisions in New York City area 🗽💥🚗")
 
