@@ -43,7 +43,21 @@ st.write(pdk.Deck(
         "zoom": 11,
         "pitch": 50,
     },
+    layers=[
+        pdk.Layer(
+            "HexagonLayer",
+            data=data[['date/time', 'latitude', 'longitude']],
+            get_position=['longitude', 'latitude'],
+            radius=100,
+            elevation_scale=4,
+            pickable=True,
+            elevation_range=[0, 1000],
+            extruded=True,
+        ),
+    ],
 ))
+
+
 
 # Shows raw data by clicking checkbox, unchecked by default
 
