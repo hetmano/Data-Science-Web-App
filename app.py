@@ -78,6 +78,8 @@ st.write(fig)
 st.header("Top 5 most dangerous streets by affected type of people")
 select = st.selectbox('Affected type of people', ['Pedestrians', 'Cyclists', 'Motorists'])
 
+# Fetching data
+
 if select == 'Pedestrians':
     st.write(original_data.query("injured_pedestrians >= 1")[["on_street_name", "injured_pedestrians"]].sort_values(by=['injured_pedestrians'], ascending=False).dropna(how='any')[:5])
 
